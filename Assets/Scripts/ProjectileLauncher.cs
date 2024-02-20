@@ -13,7 +13,7 @@
         private Rigidbody projectilePrefab;
 
         [SerializeField]
-        private float initialSpeed = 25;
+        private float initialSpeed = 35;
 
         protected override void OnPressBegan(Vector3 position)
         {
@@ -39,11 +39,13 @@
             // ownership here to the server.
             var rigidbody = projectile.GetComponent<Rigidbody>();
             rigidbody.isKinematic = false;
+            //rigidbody.useGravity = false;
             rigidbody.velocity = ray.direction * initialSpeed;
 
             // Update our score.
-            var networkCommunication = FindObjectOfType <NetworkCommunication>();
+/*            var networkCommunication = FindObjectOfType <NetworkCommunication>();
             networkCommunication.IncrementScore();
+*/        
         }
     }
 }

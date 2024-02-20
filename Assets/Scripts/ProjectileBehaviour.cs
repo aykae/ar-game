@@ -2,6 +2,7 @@ namespace MyFirstARGame
 {
     using UnityEngine;
     using Photon.Pun;
+    using System.Collections.Specialized;
 
     /// <summary>
     /// Controls projectile behaviour. In our case it currently only changes the material of the projectile based on the player that owns it.
@@ -25,11 +26,27 @@ namespace MyFirstARGame
             }
         }
 
-/*        private void Update()
+        private void OnCollisionEnter(Collision collision)
         {
-            gameObject.transform.position += gameObject.transform.forward * Time.deltaTime * 10;
+            if (collision.gameObject.CompareTag("Dartboard"))
+            {
+                // We hit the dartboard. Let's update our score.
+                var networkCommunication = FindObjectOfType<NetworkCommunication>();
+                networkCommunication.IncrementScore();
+
+                gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
-*/
+
+        public void Update()
+        {
+            //gameObject.transform.position += gameObject.transform.up * Time.deltaTime * 0.1f;
+        }
+
 
     }
 }
