@@ -24,5 +24,12 @@ namespace MyFirstARGame
                 this.transform.GetComponent<Renderer>().material = material;
             }
         }
+
+/*        private void Update()
+        {
+            gameObject.transform.position += gameObject.transform.forward * Time.deltaTime * 10;
+        }
+*/
+
     }
 }
