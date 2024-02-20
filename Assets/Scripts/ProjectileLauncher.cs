@@ -31,7 +31,9 @@
             // Cast a ray from the touch point to the world. We use the camera position as the origin and the ray direction as the
             // velocity direction.
             var ray = this.GetComponent<Camera>().ScreenPointToRay(position);
-            var projectile = PhotonNetwork.Instantiate(this.projectilePrefab.name, ray.origin, Quaternion.identity, data: initialData);
+            Quaternion rot = Quaternion.Euler(0, 180, 0);
+            //Quaternion rot = Quaternion.Euler(ray.direction);
+            var projectile = PhotonNetwork.Instantiate(this.projectilePrefab.name, ray.origin, rot, data: initialData);
 
             // By default, the projectile is kinematic in the prefab. This is because it should not be affected by physics
             // on clients other than the one owning it. Hence we disable kinematic mode and let the physics engine take over here.
@@ -41,6 +43,7 @@
             rigidbody.isKinematic = false;
             //rigidbody.useGravity = false;
             rigidbody.velocity = ray.direction * initialSpeed;
+            rigidbody.angularVelocity = Vector3.zero;
 
             // Update our score.
 /*            var networkCommunication = FindObjectOfType <NetworkCommunication>();

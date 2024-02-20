@@ -36,7 +36,7 @@ namespace MyFirstARGame
 
                 gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             }
-            else
+            else if (!collision.gameObject.CompareTag("Projectile"))
             {
                 Destroy(gameObject);
             }
