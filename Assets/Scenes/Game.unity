@@ -1089,8 +1089,6 @@ Transform:
   - {fileID: 993661984}
   m_Father: {fileID: 1513056495}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
-=======
 --- !u!1001 &495686232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1188,7 +1186,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToSpawn: {fileID: 100100, guid: f5a9bd478ca094495a4520e37f57420d, type: 3}
   diskRadius: 5
->>>>>>> a70000a8ce87c9c3fe57f9463027c1bf63244352
 --- !u!1 &695846457
 GameObject:
   m_ObjectHideFlags: 0
