@@ -24,18 +24,23 @@ namespace MyFirstARGame
                 var material = this.projectileMaterials[playerId % this.projectileMaterials.Length];
                 this.transform.GetComponent<Renderer>().material = material;
             }
+            
+            //Add active darts to globalObject 
+            GlobalObject globalObject = GameObject.Find("GlobalObject").GetComponent<GlobalObject>();
+            globalObject.darts.Add(gameObject);
+            Debug.Log("Darts: " + globalObject.darts.Count);
         }
 
         private void OnCollisionEnter(Collision collision)
         {
 
+            var networkCommunication = FindObjectOfType<NetworkCommunication>();
             // If we hit the dartboard, let's update our score.
             foreach (ContactPoint contact in collision.contacts)
             {
                 if (contact.otherCollider.gameObject.CompareTag("D1"))
                 {
                     Debug.Log("Hit D1");
-                    var networkCommunication = FindObjectOfType<NetworkCommunication>();
                     networkCommunication.IncrementScore(10);
 
                     gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
@@ -43,7 +48,6 @@ namespace MyFirstARGame
                 else if (contact.otherCollider.gameObject.CompareTag("D2"))
                 {
                     Debug.Log("Hit D2");
-                    var networkCommunication = FindObjectOfType<NetworkCommunication>();
                     networkCommunication.IncrementScore(20);
 
                     gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
@@ -51,7 +55,6 @@ namespace MyFirstARGame
                 else if (contact.otherCollider.gameObject.CompareTag("D3"))
                 {
                     Debug.Log("Hit D3");
-                    var networkCommunication = FindObjectOfType<NetworkCommunication>();
                     networkCommunication.IncrementScore(30);
 
                     gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
@@ -60,6 +63,11 @@ namespace MyFirstARGame
                 {
                     Destroy(gameObject);
                 }
+            }
+
+            if (networkCommunication.GetWinner() != null)
+            {
+                Debug.Log("Winner: " + networkCommunication.GetWinner());
             }
         }
 

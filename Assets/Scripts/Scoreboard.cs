@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace MyFirstARGame
@@ -10,7 +11,10 @@ namespace MyFirstARGame
         private Dictionary<string, int> darts;
 
         private int initDarts = 10;
-        
+
+        public int winningScore = 100;
+        private string winner;
+
         private void Start()
         {
             this.scores = new Dictionary<string, int>();
@@ -26,6 +30,11 @@ namespace MyFirstARGame
             else
             {
                 this.scores.Add(playerName, score);
+            }
+
+            if (this.scores[playerName] >= winningScore)
+            {
+                this.SetWinner(playerName);
             }
         }
 
@@ -76,6 +85,36 @@ namespace MyFirstARGame
                 return initDarts;
             }
         }
+        
+        public void SetWinner(string playerName)
+        {
+            this.winner = playerName;
+        }
+
+        public string GetWinner()
+        {
+            return this.winner;
+        }
+
+        public void ResetGame()
+        {
+/*            foreach (var score in this.scores)
+            {
+                this.scores[score.Key] = 0;
+            }
+*/
+            for (int i = 0; i < this.scores.Count; i++)
+            {
+                this.scores[this.scores.Keys.ElementAt(i)] = 0;
+            }
+
+            for (int i = 0; i < this.darts.Count; i++)
+            {
+                this.darts[this.darts.Keys.ElementAt(i)] = initDarts;
+            }
+
+            this.winner = null;
+        }
 
         private void OnGUI()
         {
@@ -85,21 +124,19 @@ namespace MyFirstARGame
 
             foreach (var score in this.scores)
             {
-                GUILayout.Label($"{score.Key}: {score.Value}\n{this.GetDarts(score.Key)}", new GUIStyle
+                GUILayout.Label($"{score.Key}: {score.Value}\n{this.GetDarts(score.Key)}\n", new GUIStyle
                 {
                     normal = new GUIStyleState
                     {
-                        textColor = Color.black
+                        textColor = Color.yellow
                     },
-                    fontSize = 30
+                    fontSize = 55
                 });
             }
-
+            
             GUILayout.FlexibleSpace();
             GUILayout.EndVertical();
             GUILayout.EndArea();
-
-
         }
     }
 }

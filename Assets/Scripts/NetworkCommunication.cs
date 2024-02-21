@@ -37,15 +37,22 @@ namespace MyFirstARGame
             this.photonView.RPC("Network_SetPlayerScore", RpcTarget.All, playerName, currentScore + increment);
         }
 
-        public void ResetScores()
+        public void ResetGame()
         {
-            return;
+            this.scoreboard.ResetGame();
         }
         
         public int GetDarts()
         {
             var playerName = $"Player {PhotonNetwork.LocalPlayer.ActorNumber}";
             return this.scoreboard.GetDarts(playerName);
+        }
+
+        public void IncrementDarts(int increment)
+        {
+            var playerName = $"Player {PhotonNetwork.LocalPlayer.ActorNumber}";
+            var currentDarts = this.scoreboard.GetDarts(playerName);
+            this.photonView.RPC("Network_SetPlayerDarts", RpcTarget.All, playerName, currentDarts + increment);
         }
 
         public void DecrementDarts()
@@ -56,6 +63,11 @@ namespace MyFirstARGame
             {
                 this.photonView.RPC("Network_SetPlayerDarts", RpcTarget.All, playerName, currentDarts - 1);
             }
+        }
+
+        public string GetWinner()
+        {
+            return this.scoreboard.GetWinner();
         }
 
         [PunRPC]

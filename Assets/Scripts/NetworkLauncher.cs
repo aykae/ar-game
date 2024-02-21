@@ -66,16 +66,18 @@ namespace MyFirstARGame
             // Creating a simple GUI on the phone screen to we can debug the connection.
             GUIStyle style = new()
             {
-                fontSize = 64
+                fontSize = 30
             };
+
+            style.normal.textColor = Color.yellow;
 
             if (this.isJoinedToRoom)
             {
-                GUI.Label(new Rect(0, Screen.height / 2 + 300, 100, 100), "Joined to room!!!", style);
+                GUI.Label(new Rect(0, Screen.height / 2 + 300, 100, 100), "Joined room!", style);
             }
             else
             {
-                GUI.Label(new Rect(0, Screen.height / 2 + 300, 100, 100), "Not joined to room", style);
+                GUI.Label(new Rect(0, Screen.height / 2 + 300, 100, 100), "Have not joined room", style);
             }
         }
 

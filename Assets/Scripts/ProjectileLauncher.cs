@@ -25,6 +25,16 @@
             if (this.projectilePrefab == null || !NetworkLauncher.Singleton.HasJoinedRoom)
                 return;
 
+            // Check for New Game Press
+            GlobalObject globalObject = GameObject.Find("GlobalObject").GetComponent<GlobalObject>();
+            if (globalObject.isGameOver)
+            {
+                networkCommunication.ResetGame();
+                globalObject.isGameOver = false;
+                globalObject.isNewGame = true;
+                return;
+            }
+
             // Ensure user is not doing anything else.
             var uiButtons = FindObjectOfType<UIButtons>();
             if (uiButtons != null && (uiButtons.IsPointOverUI(position) || !uiButtons.IsIdle))
