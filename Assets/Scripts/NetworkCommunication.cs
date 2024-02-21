@@ -36,6 +36,11 @@ namespace MyFirstARGame
             var currentScore = this.scoreboard.GetScore(playerName);
             this.photonView.RPC("Network_SetPlayerScore", RpcTarget.All, playerName, currentScore + increment);
         }
+
+        public void ResetScores()
+        {
+            return;
+        }
         
         public int GetDarts()
         {
