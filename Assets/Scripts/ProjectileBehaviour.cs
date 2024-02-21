@@ -59,8 +59,15 @@ namespace MyFirstARGame
 
                     gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 }
-                else if (contact.otherCollider.gameObject.CompareTag("Spider")) {
+                else if (contact.otherCollider.gameObject.CompareTag("Spider0")) {
                     networkCommunication.IncrementDarts(3);
+
+                    Destroy(contact.otherCollider.gameObject);
+
+                    gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                }
+                else if (contact.otherCollider.gameObject.CompareTag("Spider1")) {
+                    networkCommunication.EnableDoublePoints();
 
                     Destroy(contact.otherCollider.gameObject);
 

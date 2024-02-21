@@ -3043,8 +3043,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0f8308b6c048244a868bc96aa30be6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 9137793795997724926, guid: e8c1a94821ad2b648953e5c8c7a24b01,
-    type: 3}
+  spider0: {fileID: 9137793795997724926, guid: eaba273c1ef422346ae6be0c703c4b18, type: 3}
+  spider1: {fileID: 9137793795997724926, guid: f33072b756af0f3438c5b9dc315d12fb, type: 3}
 --- !u!1 &1828008916
 GameObject:
   m_ObjectHideFlags: 0
@@ -3160,7 +3160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0f8308b6c048244a868bc96aa30be6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 0}
+  spider0: {fileID: 0}
+  spider1: {fileID: 0}
 --- !u!1 &1910743748
 GameObject:
   m_ObjectHideFlags: 0

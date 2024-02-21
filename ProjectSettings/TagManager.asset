@@ -11,6 +11,8 @@ TagManager:
   - D2
   - D3
   - Spider
+  - Spider0
+  - Spider1
   layers:
   - Default
   - TransparentFX

@@ -23,8 +23,16 @@ namespace MyFirstARGame
             randomPosition.z = 1.7f; // Hardcoded Z position
 
             // Instantiate the spider with the required rotation and scale
-            GameObject spawnedSpider = Instantiate(spider0, randomPosition, Quaternion.Euler(-90, 0, 0));
-            spawnedSpider.transform.localScale = new Vector3(0.03f, 0.03f, 0.03f);
+            GameObject spawnedSpider;
+            if (Random.Range(0, 2) == 0)
+            {
+                spawnedSpider = Instantiate(spider0, randomPosition, Quaternion.Euler(-90, 0, 0));
+            }
+            else
+            {
+                spawnedSpider = Instantiate(spider1, randomPosition, Quaternion.Euler(-90, 0, 0));
+            }
+            spawnedSpider.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
         }
 
         Vector3 GenerateRandomPositionWithinBounds()

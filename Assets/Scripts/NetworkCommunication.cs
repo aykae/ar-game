@@ -11,11 +11,13 @@ namespace MyFirstARGame
         [SerializeField]
         private Scoreboard scoreboard;
         private bool firstGuiDraw;
+        private bool isDoubling;
 
         // Start is called before the first frame update
         void Start()
         {
             firstGuiDraw = false;
+            isDoubling = false;
         }
 
         // Update is called once per frame
@@ -38,9 +40,15 @@ namespace MyFirstARGame
 
         public void IncrementScore(int increment)
         {
+            int factor = 1;
+            if (isDoubling)
+            {
+                factor = 2;
+                DisableDoublePoints();
+            }
             var playerName = $"Player {PhotonNetwork.LocalPlayer.ActorNumber}";
             var currentScore = this.scoreboard.GetScore(playerName);
-            this.photonView.RPC("Network_SetPlayerScore", RpcTarget.All, playerName, currentScore + increment);
+            this.photonView.RPC("Network_SetPlayerScore", RpcTarget.All, playerName, currentScore + (increment * factor));
         }
 
         public void ResetGame()
@@ -74,6 +82,16 @@ namespace MyFirstARGame
         public string GetWinner()
         {
             return this.scoreboard.GetWinner();
+        }
+
+        public void EnableDoublePoints()
+        {
+            isDoubling = true;
+        }
+
+        public void DisableDoublePoints()
+        {
+            isDoubling = false;
         }
 
         [PunRPC]
