@@ -28,27 +28,43 @@ namespace MyFirstARGame
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.CompareTag("Dartboard"))
-            {
-                // We hit the dartboard. Let's update our score.
-                var networkCommunication = FindObjectOfType<NetworkCommunication>();
-                networkCommunication.IncrementScore(10);
 
-                gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            }
-            else if (!collision.gameObject.CompareTag("Projectile"))
+            // If we hit the dartboard, let's update our score.
+            foreach (ContactPoint contact in collision.contacts)
             {
-                Destroy(gameObject);
+                if (contact.otherCollider.gameObject.CompareTag("D1"))
+                {
+                    Debug.Log("Hit D1");
+                    var networkCommunication = FindObjectOfType<NetworkCommunication>();
+                    networkCommunication.IncrementScore(10);
+
+                    gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                }
+                else if (contact.otherCollider.gameObject.CompareTag("D2"))
+                {
+                    Debug.Log("Hit D2");
+                    var networkCommunication = FindObjectOfType<NetworkCommunication>();
+                    networkCommunication.IncrementScore(20);
+
+                    gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                }
+                else if (contact.otherCollider.gameObject.CompareTag("D3"))
+                {
+                    Debug.Log("Hit D3");
+                    var networkCommunication = FindObjectOfType<NetworkCommunication>();
+                    networkCommunication.IncrementScore(30);
+
+                    gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                }
+                else if (!collision.gameObject.CompareTag("Projectile")) // We hit another object that's not a dart, so let's destroy ourselves.
+                {
+                    Destroy(gameObject);
+                }
             }
         }
 
         public void Update()
         {
-            //gameObject.transform.position += gameObject.transform.up * Time.deltaTime * 0.1f;
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                Destroy(gameObject);
-            }
         }
 
 
