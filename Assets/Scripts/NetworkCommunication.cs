@@ -10,17 +10,23 @@ namespace MyFirstARGame
     {
         [SerializeField]
         private Scoreboard scoreboard;
+        private bool firstGuiDraw;
 
         // Start is called before the first frame update
         void Start()
         {
-
+            firstGuiDraw = false;
         }
 
         // Update is called once per frame
         void Update()
         {
-
+            if (!firstGuiDraw && PhotonNetwork.LocalPlayer.ActorNumber != null)
+            {
+                firstGuiDraw = true;
+                var playerName = $"Player {PhotonNetwork.LocalPlayer.ActorNumber}";
+                this.photonView.RPC("Network_SetPlayerScore", RpcTarget.All, playerName, 0);
+            }
         }
 
         public void IncrementScore()

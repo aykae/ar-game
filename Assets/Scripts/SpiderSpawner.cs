@@ -6,7 +6,8 @@ namespace MyFirstARGame
 {
     public class SpiderSpawner : MonoBehaviour
     {
-        public GameObject objectToSpawn; // Assign your spider prefab here in the Inspector
+        public GameObject spider0; // Assign your spider prefab here in the Inspector
+        public GameObject spider1; // Assign your spider prefab here in the Inspector
 
         void Start()
         {
@@ -22,7 +23,7 @@ namespace MyFirstARGame
             randomPosition.z = 1.7f; // Hardcoded Z position
 
             // Instantiate the spider with the required rotation and scale
-            GameObject spawnedSpider = Instantiate(objectToSpawn, randomPosition, Quaternion.Euler(-90, 0, 0));
+            GameObject spawnedSpider = Instantiate(spider0, randomPosition, Quaternion.Euler(-90, 0, 0));
             spawnedSpider.transform.localScale = new Vector3(0.03f, 0.03f, 0.03f);
         }
 

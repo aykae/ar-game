@@ -59,7 +59,14 @@ namespace MyFirstARGame
 
                     gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 }
-                else if (!collision.gameObject.CompareTag("Projectile")) // We hit another object that's not a dart, so let's destroy ourselves.
+                else if (contact.otherCollider.gameObject.CompareTag("Spider")) {
+                    networkCommunication.IncrementDarts(3);
+
+                    Destroy(contact.otherCollider.gameObject);
+
+                    gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                }
+                else if (!contact.otherCollider.gameObject.CompareTag("Projectile")) // We hit another object that's not a dart, so let's destroy ourselves.
                 {
                     Destroy(gameObject);
                 }

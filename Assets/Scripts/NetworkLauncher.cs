@@ -103,7 +103,6 @@ namespace MyFirstARGame
             }
 
             this.JoinedRoom?.Invoke(this);
-
         }
 
         public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
