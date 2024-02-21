@@ -46,16 +46,15 @@ namespace MyFirstARGame
                 return;
             }
 
-            GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height));
+            GUILayout.BeginArea(new Rect(0, -400, Screen.width, Screen.height));
             GUILayout.BeginVertical();
             GUILayout.FlexibleSpace();
+            GUILayout.ExpandHeight(true);
 
             GUIStyle centeredStyle = GUI.skin.GetStyle("Label");
             centeredStyle.normal.textColor = Color.yellow;
             centeredStyle.alignment = TextAnchor.MiddleCenter;
-            centeredStyle.fontSize = 100;
-            //centeredStyle.padding = new RectOffset(0, 0, 0, 700);
-
+            centeredStyle.fontSize = 120;
 
             if (networkCommunication.GetWinner() != null)
             {
@@ -63,11 +62,11 @@ namespace MyFirstARGame
 
                 if (networkCommunication.GetWinner() == $"Player {PhotonNetwork.LocalPlayer.ActorNumber}")
                 {
-                    GUILayout.Label("You Won!", centeredStyle);
+                    GUILayout.Label("You Won!", centeredStyle, GUILayout.Height(128));
                 }
                 else
                 {
-                    GUILayout.Label("You Lost.", centeredStyle);
+                    GUILayout.Label("You Lost.", centeredStyle, GUILayout.Height(128));
                 }
                 centeredStyle.fontSize = 50;
                 GUILayout.Label("Tap to play again.", centeredStyle);
