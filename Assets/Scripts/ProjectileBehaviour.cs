@@ -32,7 +32,7 @@ namespace MyFirstARGame
             {
                 // We hit the dartboard. Let's update our score.
                 var networkCommunication = FindObjectOfType<NetworkCommunication>();
-                networkCommunication.IncrementScore();
+                networkCommunication.IncrementScore(10);
 
                 gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             }
@@ -45,6 +45,10 @@ namespace MyFirstARGame
         public void Update()
         {
             //gameObject.transform.position += gameObject.transform.up * Time.deltaTime * 0.1f;
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                Destroy(gameObject);
+            }
         }
 
 

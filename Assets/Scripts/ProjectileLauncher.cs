@@ -17,6 +17,11 @@
 
         protected override void OnPressBegan(Vector3 position)
         {
+            var networkCommunication = FindObjectOfType<NetworkCommunication>();
+
+            if (networkCommunication.GetDarts() <= 0)
+                return;
+
             if (this.projectilePrefab == null || !NetworkLauncher.Singleton.HasJoinedRoom)
                 return;
 
@@ -27,12 +32,11 @@
 
             // We send our current player number as data so that the projectile can pick its material based on the player that owns it.
             var initialData = new object[] { PhotonNetwork.LocalPlayer.ActorNumber };
-
+            
             // Cast a ray from the touch point to the world. We use the camera position as the origin and the ray direction as the
             // velocity direction.
             var ray = this.GetComponent<Camera>().ScreenPointToRay(position);
             Quaternion rot = Quaternion.Euler(0, 180, 0);
-            //Quaternion rot = Quaternion.Euler(ray.direction);
             var projectile = PhotonNetwork.Instantiate(this.projectilePrefab.name, ray.origin, rot, data: initialData);
 
             // By default, the projectile is kinematic in the prefab. This is because it should not be affected by physics
@@ -46,9 +50,7 @@
             rigidbody.angularVelocity = Vector3.zero;
 
             // Update our score.
-/*            var networkCommunication = FindObjectOfType <NetworkCommunication>();
-            networkCommunication.IncrementScore();
-*/        
+            networkCommunication.DecrementDarts();
         }
     }
 }

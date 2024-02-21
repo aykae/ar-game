@@ -36,6 +36,22 @@ namespace MyFirstARGame
             var currentScore = this.scoreboard.GetScore(playerName);
             this.photonView.RPC("Network_SetPlayerScore", RpcTarget.All, playerName, currentScore + increment);
         }
+        
+        public int GetDarts()
+        {
+            var playerName = $"Player {PhotonNetwork.LocalPlayer.ActorNumber}";
+            return this.scoreboard.GetDarts(playerName);
+        }
+
+        public void DecrementDarts()
+        {
+            var playerName = $"Player {PhotonNetwork.LocalPlayer.ActorNumber}";
+            var currentDarts = this.scoreboard.GetDarts(playerName);
+            if (currentDarts > 0)
+            {
+                this.photonView.RPC("Network_SetPlayerDarts", RpcTarget.All, playerName, currentDarts - 1);
+            }
+        }
 
         [PunRPC]
         public void Network_SetPlayerScore(string playerName, int newScore)
@@ -44,12 +60,25 @@ namespace MyFirstARGame
             this.scoreboard.SetScore(playerName, newScore);
         }
 
+        [PunRPC]
+        public void Network_SetPlayerDarts(string playerName, int newDarts)
+        {
+            Debug.Log($"Player {playerName} scored!");
+            this.scoreboard.SetDarts(playerName, newDarts);
+        }
+
         public void UpdateForNewPlayer(Photon.Realtime.Player player)
         {
             var playerName = $"Player {PhotonNetwork.LocalPlayer.ActorNumber}";
+
             var currentScore = this.scoreboard.GetScore(playerName);
             this.photonView.RPC("Network_SetPlayerScore", player, playerName, currentScore);
+
+            this.scoreboard.InitDarts(playerName); 
+            var currentDarts = this.scoreboard.GetDarts(playerName);
+            this.photonView.RPC("Network_SetPlayerDarts", player, playerName, currentDarts);
         }
+
     }
 
 }
